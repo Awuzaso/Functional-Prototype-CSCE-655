@@ -1,0 +1,21 @@
+[submodule "simplJava"]
+	path = simplJava
+	url = ../simplJava.git
+[submodule "simplCSharp"]
+	path = simplCSharp
+	url = ../simplCSharp.git
+[submodule "BigSemanticsWrapperRepository"]
+	path = BigSemanticsWrapperRepository
+	url = ../BigSemanticsWrapperRepository.git
+[submodule "BigSemanticsJava"]
+	path = BigSemanticsJava
+	url = ../BigSemanticsJava.git
+[submodule "BigSemanticsService"]
+	path = BigSemanticsService
+	url = ../BigSemanticsService.git
+[submodule "BigSemanticsJavaScript"]
+	path = BigSemanticsJavaScript
+	url = ../BigSemanticsJavaScript.git
+[submodule "BigSemanticsCSharp"]
+	path = BigSemanticsCSharp
+	url = ../BigSemanticsCSharp.git

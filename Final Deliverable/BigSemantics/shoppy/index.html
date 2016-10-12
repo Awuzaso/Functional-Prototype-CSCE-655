@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shoppy demo</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../dist/gridstack.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+    <script src="../dist/gridstack.js"></script>
+    <script src="../dist/gridstack.jQueryUI.js"></script>
+
+    <!-- bsjsCore Files. You must include them in this order so as to use any BigSemantics porject -->
+    <!-- Readyable is a class used to handle the asynchronous load time of the BS project
+        BSAutoSwitch is an interface to BigSemantics that can switch between using the lab's hosted service for metadata
+            and using a browser-installed extension. BSService and BSSExtension are implementations -->
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/Readyable.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/BSAutoSwitch.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/BSService.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/BSExtension.js"></script>
+    
+    <!-- BSUtils, Downloader, ParsedURL, and simplBase are helper classes. Include them, but don't really worry about them-->
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/BSUtils.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/ParsedURL.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/Downloader.js"></script>
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/simpl/simplBase.js"></script>
+    
+    <!-- RepoMan loads a Meta-metadata repository. Avoid doing anything with it directly; it's messy-->
+    <script type="text/javascript" src="../BigSemanticsJavaScript/bsjsCore/RepoMan.js"></script>
+
+    <!--Webpage-specific javascript and CSS includes-->
+    <script type="text/javascript" src="./demo.js"></script>
+    <link href="./demo.css" rel="stylesheet" type="text/css">
+
+    <!-- I like the roboto font because it makes me feel like a real developer-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700italic,700,500,400italic,500italic,300italic,300,100italic,100' rel='stylesheet' type='text/css'>
+
+
+
+    <style type="text/css">
+        .grid-stack {
+            background: #fcfcfc;
+        }
+
+        .grid-stack-item-content {
+            color: #2c3e50;
+            text-align: center;
+            background-color: #18bc9c;
+        }
+     div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+    
+   div {
+     text-align:center;
+    } 
+        .buttonsection {
+            width: 500px;
+            height: 100 px;
+            padding: 1em;
+            margin: 0 auto;
+
+        }
+
+  
+    .inputbox [type = text]{
+        font-size: 16px;
+        background-color: white;
+        padding: 3px 10px 3px 20px;
+        margin: 0 auto;
+    }
+
+    .inputbox 
+    {
+        margin: 0 auto;
+            width: 800px;
+             padding: 1em;
+    }
+
+    </style>
+</head>
+<body>
+    
+<div class="container">
+<div>
+<header>
+   <h1>Shoppy</h1>
+</header>
+</div>
+  
+
+<div class="inputbox"> <form>
+  <input type="text" size="50" name="search" placeholder="Search..">
+  <a class= "btn btn-default" id="search-products" href="#">Go!</a>
+</form></div>
+  <div class="buttonsection">
+            <a class="btn btn-default" id="save-grid" href="#">Save Grid</a>
+            <a class="btn btn-default" id="load-grid" href="#">Load Grid</a>
+            <a class="btn btn-default" id="clear-grid" href="#">Clear Grid</a>
+            <a class="btn btn-default" id="add-new-widget" href="#">Add Widget</a>
+        </div>
+ <div class="container-fluid">
+   
+       
+
+        <br/>
+
+        <div id="msgid">
+        </div>
+
+        <div class="grid-stack">
+        </div>
+
+        <div id="imageCont"></div>
+
+        <div id="viewCont"></div>
+
+        <hr/>
+
+      <!-- <textarea id="saved-data" cols="100" rows="20" readonly="readonly"></textarea> -->
+</div>
+
+<footer>Copyright © shoppy.com</footer>
+
+</div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+            };
+            $('.grid-stack').gridstack(options);
+
+            new function () {
+                this.serializedData = [
+                    {x: 0, y: 0, width: 1, height: 2},
+                    {x: 3, y: 1, width: 1, height: 2},
+                    {x: 4, y: 1, width: 1, height: 2},
+                    {x: 2, y: 3, width: 1, height: 2},
+                    {x: 1, y: 4, width: 1, height: 2},
+                    {x: 1, y: 3, width: 1, height: 2},
+                    {x: 2, y: 4, width: 1, height: 2},
+                    {x: 2, y: 5, width: 1, height: 2}
+                ];
+
+                this.grid = $('.grid-stack').data('gridstack');
+
+                this.loadGrid = function () {
+                    $("#msgid").html("Grid Layout Loaded.");
+                    this.grid.removeAll();
+                    var items = GridStackUI.Utils.sort(this.serializedData);
+                    _.each(items, function (node) {
+                        this.grid.addWidget($('<div><div class="grid-stack-item-content" /><div/>'),
+                            node.x, node.y, node.width, node.height);
+                    }, this);
+                    return false;
+                }.bind(this);
+
+                this.saveGrid = function () {
+                    $("#msgid").html("Grid Layout Saved.");
+                    this.serializedData = _.map($('.grid-stack > .grid-stack-item:visible'), function (el) {
+                        el = $(el);
+                        var node = el.data('_gridstack_node');
+                        return {
+                            x: node.x,
+                            y: node.y,
+                            width: node.width,
+                            height: node.height
+                        };
+                    }, this);
+                    $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
+                    return false;
+                }.bind(this);
+
+              
+                this.clearGrid = function () {
+                    $("#msgid").html("Grid Layout Cleared.");
+                    this.grid.removeAll();
+                    return false;
+                }.bind(this);
+
+                this.addNewWidget = function () {
+                    $("#msgid").html("Tile Added");
+                    var items = GridStackUI.Utils.sort(this.serializedData);
+                    var node =  {
+                                x: 12 * Math.random(),
+                                y: 5 * Math.random(),
+                                width: 1,
+                                height: 2
+                            };
+                    this.grid.addWidget($('<div><div class="grid-stack-item-content" /><div/>'),node.x, node.y, node.width, node.height);
+                    return false;
+                }.bind(this);
+
+                $('#add-new-widget').click(this.addNewWidget);
+
+                $('#save-grid').click(this.saveGrid);
+                $('#load-grid').click(this.loadGrid);
+                $('#clear-grid').click(this.clearGrid);
+
+                //this.loadGrid();
+            };
+        });
+    </script>
+</body>
+</html>
